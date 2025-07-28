@@ -1,43 +1,52 @@
-# Persona-Driven PDF Analysis System - CLI Guide
+# **Persona-Driven PDF Analysis System – CLI Guide**
 
-## Overview
+## **Overview**
 
-This system analyzes PDF documents and extracts relevant sections based on your persona and job-to-be-done, providing ranked results with adaptive headings tailored to your specific context.
+This tool analyzes PDF documents and extracts contextually relevant sections based on your **persona** and **job-to-be-done**, delivering ranked results with adaptive headings tailored to your specific needs.
 
-## Quick Start
+---
 
-### Option 1: Interactive Mode (Easiest)
+## **Quick Start**
+
+### **Option 1: Interactive Mode (Recommended)**
 
 ```bash
-# Linux/Mac
+# Linux / macOS
 ./run_cli.sh
 
 # Windows
 run_cli.bat
 
-# Or directly with Python
+# Or directly using Python
 python cli_offline.py
 ```
 
-### Option 2: Command Line Arguments
+### **Option 2: Command-Line Arguments**
 
 ```bash
-python cli_offline.py --persona "HR Professional" --job "Streamline employee onboarding" --input ./pdfs
+python cli_offline.py \
+  --persona "HR Professional" \
+  --job "Streamline employee onboarding" \
+  --input ./pdfs
 ```
 
-## Installation Options
+---
 
-### 1. Standalone (No Dependencies)
-The `cli_offline.py` script works without any external dependencies and provides demo functionality showing the expected output structure.
+## **Installation Options**
 
-### 2. Full Functionality (Requires Dependencies)
-For full PDF processing capabilities, install:
+### ✅ **1. Standalone (No External Dependencies)**
+
+`cli_offline.py` works in **demo mode** without additional installations, providing sample output for quick testing.
+
+### ✅ **2. Full Functionality (Requires Dependencies)**
+
+To enable full PDF analysis and semantic ranking:
 
 ```bash
 pip install PyMuPDF pdfplumber pandas numpy scikit-learn sentence-transformers
 ```
 
-### 3. Docker (Recommended for Production)
+### ✅ **3. Docker (Recommended for Production)**
 
 ```bash
 # Build and run web interface
@@ -47,14 +56,17 @@ docker-compose up
 docker-compose --profile cli up pdf-analysis-cli
 ```
 
-## Usage Examples
+---
 
-### Basic Usage
+## **Usage Examples**
+
+### **Basic Usage**
+
 ```bash
-# Interactive mode - will prompt for persona and job
+# Interactive mode (prompts for persona and job)
 python cli_offline.py --input ./documents
 
-# Specify everything via command line
+# Fully specified via CLI
 python cli_offline.py \
   --input ./reports \
   --persona "Data Analyst" \
@@ -62,7 +74,8 @@ python cli_offline.py \
   --output ./analysis_results
 ```
 
-### Multiple Files
+### **Processing Multiple Files**
+
 ```bash
 python cli_offline.py \
   --files report1.pdf report2.pdf presentation.pdf \
@@ -70,69 +83,84 @@ python cli_offline.py \
   --job "Create project status dashboard"
 ```
 
-### Different Output Formats
+### **Custom Output Formats**
+
 ```bash
 # JSON only
-python cli_offline.py --format json --persona "Student" --job "Study for exam"
+python cli_offline.py --format json --persona "Student" --job "Prepare for exam"
 
-# Summary only  
+# Summary only
 python cli_offline.py --format summary --persona "Analyst" --job "Investment research"
 
 # Both (default)
 python cli_offline.py --format both --persona "HR" --job "Policy updates"
 ```
 
-## Command Line Options
+---
 
-| Option | Short | Description | Example |
-|--------|-------|-------------|---------|
-| `--input` | `-i` | Input directory or single PDF file | `--input ./documents` |
-| `--files` | `-f` | Specific PDF files to process | `--files doc1.pdf doc2.pdf` |
-| `--output` | `-o` | Output directory (default: ./output) | `--output ./results` |
-| `--persona` | `-p` | Your role/persona | `--persona "HR Professional"` |
-| `--job` | `-j` | Your job-to-be-done | `--job "Create onboarding forms"` |
-| `--format` | | Output format: json, summary, both | `--format summary` |
-| `--quiet` | `-q` | Minimal output | `--quiet` |
+## **Command-Line Options**
 
-## Persona Examples
+| Option      | Short | Description                              | Example                           |
+| ----------- | ----- | ---------------------------------------- | --------------------------------- |
+| `--input`   | `-i`  | Input directory or single PDF file       | `--input ./documents`             |
+| `--files`   | `-f`  | Specific PDF files to process            | `--files doc1.pdf doc2.pdf`       |
+| `--output`  | `-o`  | Output directory (default: `./output`)   | `--output ./results`              |
+| `--persona` | `-p`  | Your role/persona                        | `--persona "HR Professional"`     |
+| `--job`     | `-j`  | Your job-to-be-done                      | `--job "Create onboarding forms"` |
+| `--format`  |       | Output format: `json`, `summary`, `both` | `--format summary`                |
+| `--quiet`   | `-q`  | Minimal output                           | `--quiet`                         |
 
-### HR Professional
+---
+
+## **Persona-Based Examples**
+
+### **HR Professional**
+
 ```bash
 python cli_offline.py \
   --persona "HR Professional" \
   --job "Create and manage fillable forms for employee onboarding"
 ```
 
-**Expected Output**: Sections focused on workflow automation, digital form management, compliance documentation, and e-signature integration.
+**Expected Output:** Sections focused on workflow automation, compliance, digital form management, and e-signature integration.
 
-### Student  
+---
+
+### **Graduate Student**
+
 ```bash
 python cli_offline.py \
   --persona "Graduate Student" \
-  --job "Prepare comprehensive study materials for upcoming examination"
+  --job "Prepare comprehensive study materials for exams"
 ```
 
-**Expected Output**: Key concepts, practice problems, study guides, and exam-focused content with simplified explanations.
+**Expected Output:** Key concepts, practice questions, and simplified explanations.
 
-### Data Analyst
+---
+
+### **Data Analyst**
+
 ```bash
 python cli_offline.py \
   --persona "Business Data Analyst" \
   --job "Extract actionable insights for quarterly business review"
 ```
 
-**Expected Output**: Market trends, performance metrics, data visualizations, and strategic recommendations.
+**Expected Output:** Performance metrics, trends, data visualizations, and strategic insights.
 
-## Output Structure
+---
 
-The system generates structured JSON output with:
+## **Output Structure**
 
-- **Metadata**: Document info, processing summary, timestamps
-- **Extracted Sections**: Ranked sections with persona-adaptive titles
-- **Subsection Analysis**: Detailed analysis with actionable insights
-- **Relevance Scores**: Multi-factor scoring (semantic similarity, keyword matching, etc.)
+The system produces structured **JSON output** containing:
 
-### Sample Output
+* **Metadata:** Document details, processing summary, timestamps
+* **Extracted Sections:** Ranked by relevance with persona-adapted titles
+* **Subsection Analysis:** Detailed breakdown with actionable insights
+* **Relevance Scores:** Based on semantic similarity and keyword matching
+
+### **Sample Output**
+
 ```json
 {
   "metadata": {
@@ -161,68 +189,84 @@ The system generates structured JSON output with:
 }
 ```
 
-## File Organization
+---
+
+## **Project Structure**
 
 ```
 project/
-├── cli_offline.py          # Standalone CLI script
-├── run_cli.sh             # Linux/Mac runner
-├── run_cli.bat            # Windows runner  
-├── input/                 # Place your PDFs here
-├── output/                # Analysis results
-├── Dockerfile             # Container configuration
-└── docker-compose.yml     # Multi-container setup
+├── cli_offline.py        # CLI script
+├── run_cli.sh           # Linux/Mac runner
+├── run_cli.bat          # Windows runner
+├── input/               # PDF input directory
+├── output/              # Analysis results
+├── Dockerfile           # Container config
+└── docker-compose.yml   # Multi-container setup
 ```
 
-## Troubleshooting
+---
 
-### No PDFs Found
-- Ensure PDFs are in `./input` directory, or use `--input` to specify location
-- Check file permissions and that files have `.pdf` extension
+## **Troubleshooting**
 
-### Missing Dependencies  
-- The offline CLI works without dependencies (demo mode)
-- For full functionality: `pip install -r requirements.txt`
-- Or use Docker for isolated environment
+### **No PDFs Found**
 
-### Output Issues
-- Check write permissions in output directory
-- Use `--output` to specify different location
-- Try `--quiet` mode to reduce output verbosity
+* Ensure PDFs are placed in `./input` or use `--input` to specify.
+* Verify `.pdf` extension and file permissions.
 
-## Performance Notes
+### **Missing Dependencies**
 
-- **CPU Optimized**: Uses lightweight models suitable for CPU-only execution
-- **Memory Efficient**: Processes documents incrementally to minimize RAM usage  
-- **Time Constraints**: Designed for <60 second processing of 3-5 documents
-- **Offline Capable**: Works without internet connection after initial setup
+* For demo mode: No extra steps required.
+* For full features:
 
-## Advanced Usage
+  ```bash
+  pip install -r requirements.txt
+  ```
+* Or use Docker for isolated setup.
 
-### Batch Processing
+### **Output Issues**
+
+* Check write permissions in output directory.
+* Use `--output` for a custom location.
+* Use `--quiet` for minimal output.
+
+---
+
+## **Performance Notes**
+
+* **CPU-Optimized:** Suitable for CPU-only environments.
+* **Memory-Efficient:** Processes documents incrementally.
+* **Fast Execution:** Designed for <60s processing of 3–5 documents.
+* **Offline Capable:** Works without internet after setup.
+
+---
+
+## **Advanced Usage**
+
+### **Batch Processing**
+
 ```bash
-# Process multiple directories
 for dir in reports_q1 reports_q2 reports_q3; do
   python cli_offline.py --input $dir --output results_$dir --persona "Analyst" --job "Quarterly review"
 done
 ```
 
-### Integration with Other Tools
+### **Integration with Other Tools**
+
+Convert output to CSV:
+
 ```bash
-# Convert output to CSV for spreadsheet analysis
 python -c "
 import json, csv
 with open('output/analysis_results.json') as f:
     data = json.load(f)
-    
 with open('sections.csv', 'w', newline='') as f:
-    writer = csv.DictWriter(f, fieldnames=['title', 'document', 'score'])
+    writer = csv.DictWriter(f, fieldnames=['title','document','score'])
     writer.writeheader()
     for section in data['extracted_sections']:
         writer.writerow({
             'title': section['persona_adapted_title'],
-            'document': section['document'], 
+            'document': section['document'],
             'score': section['relevance_scores']['total_score']
         })
 "
-```
+
